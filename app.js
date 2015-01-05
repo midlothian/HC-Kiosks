@@ -1,14 +1,26 @@
 var express = require('express'), 
     exphbs  = require('express-handlebars');
+dbPass = ''
 
-app = express();
+var prompt = require('prompt');
 
-app.engine('handlebars', exphbs({defaultLayout: 'main', partialsDir: 'views/partials/'}));
-app.set('view engine', 'handlebars')
+prompt.start()
 
-app.use(express.static(__dirname + '/public'))
-app.use(require('./controllers'))
+prompt.get(['DBPassword'], function(err, result) {
+    dbPass = result.DBPassword;
+    startApp();
+});
 
-app.listen(3000, function() {
-  console.log('Listening on port 3000...')
-})
+function startApp() {         
+    app = express();
+
+    app.engine('handlebars', exphbs({defaultLayout: 'main', partialsDir: 'views/partials/'}));
+    app.set('view engine', 'handlebars')
+
+    app.use(express.static(__dirname + '/public'))
+    app.use(require('./controllers'))
+
+    app.listen(3000, function() {
+      console.log('Listening on port 3000...')
+    })
+}

@@ -1,6 +1,5 @@
 /*jslint node: true */
 
-var dbPass = prompt("enter db password")
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host            : 'regal.byu.edu',
